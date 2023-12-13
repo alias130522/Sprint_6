@@ -17,9 +17,6 @@ class AboutRent(BasePage):
     button_yes_window_want_place_order = [By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"][text()="Да"]']
     button_view_status_window_order_placed = [By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"][text()="Посмотреть статус"]']
 
-    # def wait_page_about_rent(self):
-    #     return (WebDriverWait(self.driver, 100).until
-    #             (EC.visibility_of_element_located((By.XPATH, './/input[@placeholder="* Когда привезти самокат"]'))))
 
     def get_today(self):
         """ заполнение поля Когда привести самокат на стр Про аренду"""
@@ -38,21 +35,8 @@ class AboutRent(BasePage):
         """ выбор чекбокса в поле Цвет самоката на стр Про аренду"""
         return self.driver.find_element(*checkbox).click()
 
-    # def click_button_order(self):
-    #     self.driver.find_element(*self.button_order).click()
-
-    # def wait_window_want_place_order(self):
-    #     return (WebDriverWait(self.driver, 10).until
-    #             (EC.visibility_of_element_located((By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"][text()="Да"]'))))
-
-    # def click_button_yes(self):
-    #     self.driver.find_element(*self.button_yes).click()
-
-    # def wait_window_order_placed(self):
-    #     return (WebDriverWait(self.driver, 10).until
-    #             (EC.visibility_of_element_located((By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"][text()="Посмотреть статус"]'))))
-
     def page_about_rent_input_values(self):
+        """ заполнение полей ввода страницы Про аренду"""
         self.waiting(AboutRent.field_when_bring_scooter)
         self.get_today()
         self.choice_rental_period(AboutRent.field_rental_period_text_two_days)
@@ -60,6 +44,7 @@ class AboutRent(BasePage):
         self.click_button(AboutRent.button_order)
 
     def window_want_place_order(self):
+        """ ожидание окна Хотите оформить аренду и клик на кнопку Да"""
         self.waiting(AboutRent.button_yes_window_want_place_order)
         self.click_button(AboutRent.button_yes_window_want_place_order)
 

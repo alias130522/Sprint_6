@@ -26,10 +26,6 @@ class OrderScooter(BasePage):
         WebDriverWait(self.driver, 100).until(EC.visibility_of_element_located(button))
         return self.driver.find_element(*button).click()
 
-    # def wait_form_order_scooter(self):
-    #     """ ожидание формы Для кого самокат по элементу страницы """
-    #     return (WebDriverWait(self.driver, 100).until
-    #             (EC.visibility_of_element_located((By.XPATH, './/input[@placeholder="* Имя"]'))))
 
     def input_data(self, name, surname, address, telephone):
         """ заполнение полей ввода формы Для кого самокат"""

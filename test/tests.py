@@ -23,8 +23,10 @@ class Test:
         """ проверка работы выпадающего списка в разделе Вопросы о важном """
         object_base_page = BasePage(driver)
         object_base_page.go_base_page()
+        object_base_page.click_button(BasePage.button_cookie)
+        object_base_page.scrol(id_strelca)
         object_base_page.checking_drop_down_list(id_strelca, hidden_text)
-        assert object_base_page.find_element_by_xpath(hidden_text).is_displayed()
+        assert object_base_page.find_element(hidden_text).is_displayed()
 
 
     @pytest.mark.parametrize('name, surname, address, telephone, station, button_order',

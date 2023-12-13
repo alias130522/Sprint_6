@@ -6,8 +6,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 class BasePage:
+    """ класс общих методов и теста первой страницы """
 
-    button_find_page_yandex = './/button[@class="arrow__button"][text()="Найти]'
     button_yandex_page_scooter = [By.XPATH, './/img[@src="/assets/ya.svg"][@alt="Yandex"]']
     button_scooter = [By.XPATH, './/img[@src="/assets/scooter.svg"][@alt="Scooter"]']
     url_page_yandex = 'https://dzen.ru/?yredirect=true'
@@ -26,19 +26,20 @@ class BasePage:
         current_url = self.driver.current_url
         return current_url
 
-    def find_element_by_id_and_click(self, id_element):
+    def find_element_and_click(self, id_element):
         """ найти элемент по его id и кликнуть """
-        return self.driver.find_element(By.ID, id_element).click()
+        return self.driver.find_element(*id_element).click()
 
-    def find_element_by_xpath(self, xpath_element):
-        """ найти элемент по его Xpath """
-        return self.driver.find_element(By.XPATH, xpath_element)
+    def find_element(self, xpath_element):
+        """ найти элемент и вернуть его значение """
+        return self.driver.find_element(*xpath_element)
 
 
-    def scrol(self):
-        """ скрол главной страницы вниз до первой стрелки """
-        element = self.driver.find_element(By.ID, Locators.first_button)
+    def scrol(self, visible_element):
+        """ скрол главной страницы вниз до выбранного элемента """
+        element = self.driver.find_element(*visible_element)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
 
     def waiting(self, wait):
         """ ожидание отображения выбранного элемента """
@@ -49,12 +50,7 @@ class BasePage:
         """ клик на любую кнопку """
         return self.driver.find_element(*button).click()
 
-
-    # def click_cookie(self):
-    #     return self.driver.find_element(By.ID, 'rcc-confirm-button').click()
-
     def checking_drop_down_list(self, id_arrow, wait):
-        self.click_button(BasePage.button_cookie)
-        self.scrol()
-        self.find_element_by_id_and_click(id_arrow)
+        """ находит элемент списка, кликает на него и ожидает появления скрытого текста"""
+        self.find_element_and_click(id_arrow)
         self.waiting(wait)
