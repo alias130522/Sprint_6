@@ -10,6 +10,8 @@ from conftest import driver
 
 class Test:
 
+    @allure.title('Проверка выпадающего списка в разделе Вопросы о важном')
+    @allure.description('При нажатии на стрелочку/вопрос, открывается соответствующий текст.')
     @pytest.mark.parametrize('id_strelca,hidden_text', [[Locators.first_button, Locators.first_hidden_text],
                                                         [Locators.second_button, Locators.second_hidden_text],
                                                         [Locators.three_button, Locators.three_hidden_text],
@@ -20,7 +22,6 @@ class Test:
                                                         [Locators.eight_button, Locators.eight_hidden_text]
                                                         ])
     def test_list_questions(self, driver, id_strelca, hidden_text):
-        """ проверка работы выпадающего списка в разделе Вопросы о важном """
         object_base_page = BasePage(driver)
         object_base_page.go_base_page()
         object_base_page.click_button(BasePage.button_cookie)
@@ -28,13 +29,13 @@ class Test:
         object_base_page.checking_drop_down_list(id_strelca, hidden_text)
         assert object_base_page.find_element(hidden_text).is_displayed()
 
-
+    @allure.title('Проверка позитивного сценария оформления заказа')
+    @allure.description('Проверка полного сценария от нажатия кнопки Заказать(любой) до отображения окна Заказ оформлен')
     @pytest.mark.parametrize('name, surname, address, telephone, station, button_order',
                              [['Дима','Фамилия','Москва','79864561223','Зорге', OrderScooter.button_order_down],
                              ['Вова', 'Петров', 'Академическая, 14 корп.2 кв. 133','89868542125','Преображенская площадь', OrderScooter.button_order_up]
                               ])
     def test_form_order(self, driver, name, surname, address, telephone, station, button_order):
-        """ проверка полного сценария от нажатия кнопки Заказать до отображения окна Заказ оформлен """
         """ немного не понял задание, поэтому сделал как есть, если будут добавляться ещё кнопки Заказать их также можно будет использовать"""
         object_order = OrderScooter(driver)
         object_order.go_base_page()
@@ -48,9 +49,9 @@ class Test:
 
         assert object_rent.waiting(AboutRent.button_view_status_window_order_placed)
 
-
+    @allure.title('Проверка кликабельности логотипа Самокат')
+    @allure.description('При клике на логотип Самокат происходит переход на главную страницу Самоката')
     def test_button_scooter(self, driver):
-        """ проверка клик по логотипу Самокат, попадаешь на главную страницу «Самоката»"""
         object_order = OrderScooter(driver)
         object_order.go_base_page()
         object_order.click_button_order(OrderScooter.button_order_down)
@@ -58,9 +59,9 @@ class Test:
         object_order.click_button(OrderScooter.button_scooter)
         assert object_order.waiting(OrderScooter.button_order_up)
 
-
+    @allure.title('Проверка кликабельности логотипа Яндекс')
+    @allure.description('При клике на логотип Яндекс в новом окне через редирект откроется главная страница Дзена')
     def test_button_yandex(self, driver):
-        """ проверка клик по логотипу Яндекс, новом окне через редирект откроется главная страница Дзена """
         object_order = OrderScooter(driver)
         object_order.go_base_page()
         object_order.waiting(BasePage.button_yandex_page_scooter)
@@ -68,7 +69,7 @@ class Test:
         object_order.driver.switch_to.window(object_order.driver.window_handles[1])
         time.sleep(5)   # поставил данное ожидание, т к пока не подобрал нужное, чтобы дождаться полной загрузки страницы
 
-        assert object_order.get_url_page() == 'https://dzen.ru/?yredirect=true', f" Тест пройден успешно, отобразилась страница Дзен"
+        assert object_order.get_url_page() == 'https://dzen.ru/?yredirect=true'
 
 
 

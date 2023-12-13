@@ -18,6 +18,7 @@ class OrderScooter(BasePage):
     drop_down_list_metro_station = [By.CLASS_NAME, 'select-search__select']
     button_next = [By.XPATH, './/button[text()="Далее"]']
 
+    @allure.step('клик на {button} Заказать внизу страницы и сверху')
     def click_button_order(self, button):
         """ клик на кнопку Заказать внизу страницы и сверху """
         element = self.driver.find_element(*button)
@@ -43,12 +44,11 @@ class OrderScooter(BasePage):
         self.driver.find_element(*self.drop_down_list_metro_station).click()
 
 
-    # def click_button_next(self):
-    #     """ клик кнопки Далее на странице Для кого самокат"""
-    #     return self.driver.find_element(*self.button_next).click()
-
+    @allure.step('Метод заполнения данных на стр Для кого самокат объединяет: '
+                 'ожидание страницы Для кого самокат, '
+                 'заполнение полей: Имя, Фамилия, Адрес, Станция метро, Телефон'
+                 'клик на кнопку Далее ')
     def input_values_page_for_who_scooter(self, name, surname, address, telephone, station):
-        """ полный сценарий заполнения данных на странице Для кого самокат """
         self.waiting(OrderScooter.fild_name)
         self.input_data(name, surname, address, telephone)
         self.choose_metro_station(station)

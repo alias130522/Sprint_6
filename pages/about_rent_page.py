@@ -35,16 +35,21 @@ class AboutRent(BasePage):
         """ выбор чекбокса в поле Цвет самоката на стр Про аренду"""
         return self.driver.find_element(*checkbox).click()
 
+    @allure.step('Метод запонения данных стр Про аренду объединяет:'
+                 'ожидание отображения страницы Про аренду,'
+                 'установка действующей даты в поле Когда привести самокат,'
+                 'выбор срока аренды,'
+                 'выбор чекбокса,'
+                 'клик на кнопку Заказать')
     def page_about_rent_input_values(self):
-        """ заполнение полей ввода страницы Про аренду"""
         self.waiting(AboutRent.field_when_bring_scooter)
         self.get_today()
         self.choice_rental_period(AboutRent.field_rental_period_text_two_days)
         self.input_checkbox_label(AboutRent.checkbox_black)
         self.click_button(AboutRent.button_order)
 
+    @allure.step('Ожидание окна Хотите оформить аренду и клик на кнопку Да')
     def window_want_place_order(self):
-        """ ожидание окна Хотите оформить аренду и клик на кнопку Да"""
         self.waiting(AboutRent.button_yes_window_want_place_order)
         self.click_button(AboutRent.button_yes_window_want_place_order)
 
