@@ -1,10 +1,9 @@
-import allure
+
 from selenium.webdriver.common.by import By
 
 
 class Locators:
 
-    BASE_URL = 'https://qa-scooter.praktikum-services.ru/'
 
     first_button = By.ID, 'accordion__heading-0'
     first_hidden_text = By.XPATH, './/p[text()="Сутки — 400 рублей. Оплата курьеру — наличными или картой."]'

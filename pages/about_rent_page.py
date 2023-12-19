@@ -1,8 +1,6 @@
 import allure
 import datetime
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 class AboutRent(BasePage):
@@ -20,20 +18,20 @@ class AboutRent(BasePage):
 
     def get_today(self):
         """ заполнение поля Когда привести самокат на стр Про аренду"""
-        self.driver.find_element(*self.field_when_bring_scooter).click()
+        self.find_element_and_click(AboutRent.field_when_bring_scooter)
         data = str(datetime.date.today())
-        self.driver.find_element(*self.field_when_bring_scooter).send_keys(data)
-        self.driver.find_element(*self.text_about_rent).click()
+        self.find_element(AboutRent.field_when_bring_scooter).send_keys(data)
+        self.find_element_and_click(AboutRent.text_about_rent)
 
     def choice_rental_period(self, number_days):
         """ выбор Срока аренды самоката на стр Про аренду"""
-        self.driver.find_element(*self.field_rental_period).click()
-        WebDriverWait(self.driver, 100).until(EC.visibility_of_element_located(number_days))
-        self.driver.find_element(*self.field_rental_period_text_two_days).click()
+        self.find_element_and_click(AboutRent.field_rental_period)
+        self.waiting(number_days)
+        self.find_element_and_click(AboutRent.field_rental_period_text_two_days)
 
     def input_checkbox_label(self, checkbox):
         """ выбор чекбокса в поле Цвет самоката на стр Про аренду"""
-        return self.driver.find_element(*checkbox).click()
+        return self.find_element_and_click(checkbox)
 
     @allure.step('Метод запонения данных стр Про аренду объединяет:'
                  'ожидание отображения страницы Про аренду,'
@@ -46,12 +44,12 @@ class AboutRent(BasePage):
         self.get_today()
         self.choice_rental_period(AboutRent.field_rental_period_text_two_days)
         self.input_checkbox_label(AboutRent.checkbox_black)
-        self.click_button(AboutRent.button_order)
+        self.find_element_and_click(AboutRent.button_order)
 
     @allure.step('Ожидание окна Хотите оформить аренду и клик на кнопку Да')
     def window_want_place_order(self):
         self.waiting(AboutRent.button_yes_window_want_place_order)
-        self.click_button(AboutRent.button_yes_window_want_place_order)
+        self.find_element_and_click(AboutRent.button_yes_window_want_place_order)
 
 
 
