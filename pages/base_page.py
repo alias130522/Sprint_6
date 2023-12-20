@@ -5,8 +5,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
-
-
 class BasePage:
     """ класс общих методов """
 
@@ -42,10 +40,6 @@ class BasePage:
     @allure.step('Ожидание кликабельности  выбранного элемента')
     def wait_clickable_element(self, click_element):
         return WebDriverWait(self.driver, 100).until(EC.element_to_be_clickable(click_element))
-
-    # @allure.step('Найти элемент
-    # def click_button(self, button):
-    #     return self.driver.find_element(*button).click()
 
     @allure.step('Переключается на новое окно')
     def new_window(self):

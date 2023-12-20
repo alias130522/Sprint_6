@@ -1,12 +1,6 @@
 import allure
-from locators import Locators
 from selenium.webdriver.common.by import By
-from conftest import driver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from pages.base_page import BasePage
-
 
 class MainPage(BasePage):
     """ класс главной страницы """
@@ -16,7 +10,6 @@ class MainPage(BasePage):
     url_page_yandex = 'https://dzen.ru/?yredirect=true'
     button_cookie = [By.ID, 'rcc-confirm-button']
     dzen = [By.XPATH, './/a[@class="desktop-base-header__logoLink-aE"][@data-testid="logo"]']
-
 
 
     @allure.step('Метод проверки выпадающего списка вопросов:'
